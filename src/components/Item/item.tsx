@@ -80,12 +80,16 @@ export const Item: React.FC<OwnProps> = ({ data }) => {
           </div>
           <div className="col-4 d-flex justify-content-end">
             <div>
-              <button type="button" className="btn btn-outline-success m-1">
-                Qualified
-              </button>
-              <button type="button" className="btn btn-outline-danger m-1">
-                Not Qualified
-              </button>
+              {data.qualified ? (
+                <button type="button" className="btn btn-outline-success m-1">
+                  Qualified
+                </button>
+              ) : (
+                <button type="button" className="btn btn-outline-danger m-1">
+                  Not Qualified
+                </button>
+              )}
+
               <button type="button" className="btn btn-outline-secondary m-1">
                 X
               </button>

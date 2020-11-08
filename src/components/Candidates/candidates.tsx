@@ -15,13 +15,16 @@ export const Candidates: React.FC<OwnProps> = ({ tab }) => {
   useEffect(() => {
     getCandidates()
       .then((data) => {
-        setCandidates(data)
+        if (tab === 'qualified') {
+          setCandidates(data.items.filter((c) => c.qualified))
+        } else if (tab === 'unqualified') {
+          setCandidates(data.items.filter((c) => !c.qualified))
+        } else {
+          setCandidates(data.items)
+        }
       })
       .catch((err) => console.log(err))
-      .finally(() => console.log('finish'))
-  }, [])
-
-  console.log(candidates)
+  }, [tab])
 
   return (
     <div>
@@ -31,7 +34,7 @@ export const Candidates: React.FC<OwnProps> = ({ tab }) => {
         </div>
       ))}
 
-      <Pagination />
+      {candidates && candidates.length > 1 ? <Pagination /> : null}
     </div>
   )
 }

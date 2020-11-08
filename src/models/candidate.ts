@@ -10,3 +10,9 @@ export interface Candidate {
   country: string
   jobLocation: string
 }
+
+export interface CandidatesData {
+  count: number
+  items: Candidate[]
+  total: number
+}
