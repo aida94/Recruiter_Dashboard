@@ -1,5 +1,6 @@
 export interface Candidate {
   id: number
+  avatar: string
   createdAt: Date
   fullName: string
   qualified: string

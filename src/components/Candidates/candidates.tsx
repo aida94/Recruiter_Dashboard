@@ -25,7 +25,6 @@ export const Candidates: React.FC<OwnProps> = ({ tab }) => {
 
   return (
     <div>
-      {tab}
       {candidates?.map((item, index) => (
         <div key={index}>
           <Item data={item} />
