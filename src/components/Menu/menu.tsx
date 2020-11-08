@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { Candidates } from './../CandidatesList/candidates'
+import { Candidates } from '../Candidates/candidates'
 
 export const Menu: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('nav-review-tab')
+  const [activeTab, setActiveTab] = useState<string>('nav-qualified-tab')
 
   return (
-    <div className="conainer mt-5">
-      <nav className="mb-5">
+    <div className="conainer mt-4">
+      <nav className="mb-4">
         <div className="nav nav-tabs" id="nav-tab" role="tablist">
           <a
             className={`nav-item nav-link ${
@@ -15,10 +15,7 @@ export const Menu: React.FC = () => {
             }`}
             id="nav-review-tab"
             data-toggle="tab"
-            href="#nav-review"
             role="tab"
-            aria-controls="nav-review"
-            aria-selected="true"
             onClick={() => setActiveTab('nav-review-tab')}
           >
             To review
@@ -29,10 +26,7 @@ export const Menu: React.FC = () => {
             }`}
             id="nav-qualified-tab"
             data-toggle="tab"
-            href="#nav-qualified"
             role="tab"
-            aria-controls="nav-qualified"
-            aria-selected="false"
             onClick={() => setActiveTab('nav-qualified-tab')}
           >
             Qualified
@@ -43,10 +37,7 @@ export const Menu: React.FC = () => {
             }`}
             id="nav-unqualified-tab"
             data-toggle="tab"
-            href="#nav-unqualified"
             role="tab"
-            aria-controls="nav-unqualified"
-            aria-selected="false"
             onClick={() => setActiveTab('nav-unqualified-tab')}
           >
             Unqualified
