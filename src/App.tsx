@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-import { getCandidates } from './services/apiService'
+import { NavBar } from './components/Navbar/navbar'
+import { Menu } from './components/Menu/menu'
 
-const App = () => {
-  console.log(getCandidates(false))
-
-  return <div />
-}
+const App = () => (
+  <div>
+    <NavBar />
+    <div className="container">
+      <Menu />
+    </div>
+  </div>
+)
 
 export default App
