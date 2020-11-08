@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const App = () => (
-  <div>
-    <p>Recruiter Dashboard</p>
-  </div>
-)
+import { getCandidates } from './services/apiService'
+
+const App = () => {
+  console.log(getCandidates(false))
+
+  return <div />
+}
 
 export default App
