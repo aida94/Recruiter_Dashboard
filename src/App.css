@@ -16,3 +16,7 @@
   min-width: 150px;
 }
 
+.pageActive {
+  background-color: lightgray;
+}
+

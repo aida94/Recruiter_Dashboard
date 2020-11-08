@@ -1,39 +1,33 @@
 import React from 'react'
 
-export const Pagination: React.FC = () => {
-  console.log(1)
+interface OwnProps {
+  total: number
+  page: number
+  setPage: (nr: number) => void
+}
+
+export const Pagination: React.FC<OwnProps> = ({ total, page, setPage }) => {
+  const nrOfPages = Math.ceil(total / 3)
+  const items = []
+
+  for (let i = 0; i < nrOfPages; i++) {
+    items.push(
+      <li
+        className="page-item"
+        onClick={() => {
+          setPage(i + 1)
+        }}
+      >
+        <a className={`page-link ${page === i + 1 ? 'pageActive' : ''}`}>
+          {i + 1}
+        </a>
+      </li>
+    )
+  }
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="pagination">
-        <li className="page-item">
-          <a className="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span className="sr-only">Previous</span>
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            1
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            2
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            3
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span className="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
+      <ul className="pagination">{items}</ul>
     </nav>
   )
 }

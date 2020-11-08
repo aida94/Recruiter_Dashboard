@@ -11,20 +11,21 @@ interface OwnProps {
 
 export const Candidates: React.FC<OwnProps> = ({ tab }) => {
   const [candidates, setCandidates] = useState<Candidate[]>()
+  const [page, setPage] = useState<number>(1)
+  const [total, setTotal] = useState<number>(0)
 
   useEffect(() => {
-    getCandidates()
-      .then((data) => {
-        if (tab === 'qualified') {
-          setCandidates(data.items.filter((c) => c.qualified))
-        } else if (tab === 'unqualified') {
-          setCandidates(data.items.filter((c) => !c.qualified))
-        } else {
-          setCandidates(data.items)
-        }
-      })
-      .catch((err) => console.log(err))
-  }, [tab])
+    getCandidates(page).then((data) => {
+      if (tab === 'qualified') {
+        setCandidates(data.items.filter((c) => c.qualified))
+      } else if (tab === 'unqualified') {
+        setCandidates(data.items.filter((c) => !c.qualified))
+      } else {
+        setCandidates(data.items)
+      }
+      setTotal(data.total)
+    })
+  }, [tab, page])
 
   return (
     <div>
@@ -34,7 +35,9 @@ export const Candidates: React.FC<OwnProps> = ({ tab }) => {
         </div>
       ))}
 
-      {candidates && candidates.length > 1 ? <Pagination /> : null}
+      {candidates && candidates.length > 0 ? (
+        <Pagination total={total} page={page} setPage={setPage} />
+      ) : null}
     </div>
   )
 }
