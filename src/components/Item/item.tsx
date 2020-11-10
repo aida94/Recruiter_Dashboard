@@ -2,10 +2,10 @@ import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
+import { Qualified } from './../../models/enum'
 import { CandidateInterface } from './../../models/interfaces'
 import { getScore } from './../../utils/getScore'
 import avatar from './avatar.png'
-
 import './item.css'
 
 interface OwnProps {
@@ -60,19 +60,19 @@ export const Item: React.FC<OwnProps> = ({ data }) => {
 
           <div className="col-5 col-md-4 d-flex justify-content-end my-4 my-md-0">
             <div>
-              {data.qualified ? (
-                <button type="button" className="btn btn-outline-success m-1">
+              {data.qualified === Qualified.Yes && (
+                <div className="btn btn-outline-success m-1 divBtn">
                   Qualified
-                </button>
-              ) : (
-                <button type="button" className="btn btn-outline-danger m-1">
-                  Not Qualified
-                </button>
+                </div>
               )}
-
-              <button type="button" className="btn btn-outline-secondary m-1">
-                X
-              </button>
+              {data.qualified === Qualified.No && (
+                <div className="btn btn-outline-danger m-1 divBtn ">
+                  Unqualified
+                </div>
+              )}
+              {data.qualified === Qualified.InReview && (
+                <div className="btn btn-outline-info m-1 divBtn ">InReview</div>
+              )}
             </div>
           </div>
         </div>

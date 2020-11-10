@@ -1,26 +1,48 @@
 .card {
-    border-radius: 10px;
-    border: 1px solid white;
-    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: 1px solid white;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
-    background-color: white;
-    padding: 5px;
-    font-size: 12px;
+  background-color: white;
+  padding: 5px;
+  font-size: 12px;
 }
 
 .img {
-    height: 70px;
-    width: 70px;
-    border-radius: 50px;
-  }
+  height: 70px;
+  width: 70px;
+  border-radius: 50px;
+}
   
-  .progressBar {
-    height: 70px;
-    width: 70px;
-  }
-  
-  .scoreText {
-    min-width: 120px;
-  }
+.progressBar {
+  height: 70px;
+  width: 70px;
+}
+
+.scoreText {
+  min-width: 120px;
+}
+
+.divBtn {
+  cursor: auto !important;
+}
+
+.btn-outline-danger:hover {
+  color: #dc3545;
+  background-color: white;
+  border-color: #dc3545;
+}
+
+.btn-outline-info:hover {
+  color: #17a2b8;
+  background-color: white;
+  border-color: #17a2b8;
+}
+
+.btn-outline-success:hover {
+  color: #28a745;
+  background-color: white;
+  border-color: #28a745;
+}

@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 
-import { Candidates } from '../Candidates/candidates'
-
+import { Candidates } from './../Candidates/candidates'
 import { CandidateInterface } from './../../models/interfaces'
 import { Qualified } from './../../models/enum'
 import { getCandidates } from './../../services/apiService'
-
 import './menu.css'
 
 export const Menu: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(Qualified.Yes)
   const [candidates, setCandidates] = useState<CandidateInterface[]>([])
-  const [total, setTotal] = useState<number>(0)
-  const [currentpage, setCurrentPage] = useState<number>(1)
 
   const [candidateNr, setCandidateNr] = useState({
     inReview: 0,
@@ -22,7 +18,7 @@ export const Menu: React.FC = () => {
   })
 
   useEffect(() => {
-    getCandidates(currentpage).then((data) => {
+    getCandidates(1).then((data) => {
       const inReviewCan = data.items.filter(
         (c) => c.qualified === Qualified.InReview
       )
@@ -41,16 +37,13 @@ export const Menu: React.FC = () => {
 
       if (activeTab === Qualified.Yes) {
         setCandidates(qualifiedCan)
-        setTotal(qualifiedCan.length)
       } else if (activeTab === Qualified.No) {
         setCandidates(unqualifiedCan)
-        setTotal(unqualifiedCan.length)
       } else if (activeTab === Qualified.InReview) {
         setCandidates(inReviewCan)
-        setTotal(inReviewCan.length)
       }
     })
-  }, [activeTab, currentpage])
+  }, [activeTab])
 
   return (
     <div>
@@ -110,12 +103,7 @@ export const Menu: React.FC = () => {
         </div>
       </div>
 
-      <Candidates
-        candidates={candidates}
-        total={total}
-        page={currentpage}
-        setPage={setCurrentPage}
-      />
+      <Candidates candidates={candidates} />
     </div>
   )
 }
