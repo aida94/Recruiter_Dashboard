@@ -1,21 +1,6 @@
 .App {
-  text-align: center;
   background-color: #f8f9fa;
   min-height: 500px;
-}
-
-.img {
-  height: 60px;
-  width: 60px;
-}
-
-.progressBar {
-  height: 80px;
-  width: 80px;
-}
-
-.scoreText {
-  min-width: 150px;
 }
 
 .pageActive {

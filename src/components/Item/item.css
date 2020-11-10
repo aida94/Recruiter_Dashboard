@@ -1,0 +1,26 @@
+.card {
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: white;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50px;
+  }
+  
+  .progressBar {
+    height: 70px;
+    width: 70px;
+  }
+  
+  .scoreText {
+    min-width: 120px;
+  }

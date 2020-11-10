@@ -7,37 +7,26 @@ import { Pagination } from './../Pagination/pagination'
 
 interface OwnProps {
   candidates: CandidateInterface[]
+  total: number
+  page: number
+  setPage: (nr: number) => void
 }
 
-export const Candidates: React.FC<OwnProps> = ({ candidates }) => {
-  // const [candidates, setCandidates] = useState<Candidate[]>()
-  const [page, setPage] = useState<number>(1)
-  const [total, setTotal] = useState<number>(0)
+export const Candidates: React.FC<OwnProps> = ({
+  candidates,
+  total,
+  page,
+  setPage,
+}) => (
+  <div>
+    {candidates?.map((item, index) => (
+      <div key={index}>
+        <Item data={item} />
+      </div>
+    ))}
 
-  // useEffect(() => {
-  //   getCandidates(page).then((data) => {
-  //     if (tabName === 'qualified') {
-  //       setCandidates(data.items.filter((c) => c.qualified))
-  //     } else if (tabName === 'unqualified') {
-  //       setCandidates(data.items.filter((c) => !c.qualified))
-  //     } else {
-  //       setCandidates(data.items)
-  //     }
-  //     setTotal(data.total)
-  //   })
-  // }, [tabName, page])
-
-  return (
-    <div>
-      {candidates?.map((item, index) => (
-        <div key={index}>
-          <Item data={item} />
-        </div>
-      ))}
-
-      {candidates && candidates.length > 0 ? (
-        <Pagination total={total} page={page} setPage={setPage} />
-      ) : null}
-    </div>
-  )
-}
+    {candidates && candidates.length > 0 ? (
+      <Pagination total={total} page={page} setPage={setPage} />
+    ) : null}
+  </div>
+)

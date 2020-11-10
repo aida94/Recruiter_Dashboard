@@ -3,84 +3,62 @@ import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
 import { CandidateInterface } from './../../models/interfaces'
+import { getScore } from './../../utils/getScore'
 import avatar from './avatar.png'
+
+import './item.css'
 
 interface OwnProps {
   data: CandidateInterface
-}
-
-const getScore = (
-  candidate: CandidateInterface
-): { type: string; score: number } => {
-  let type = 'Good'
-  let score = 0
-
-  if (candidate.fullName) {
-    score += 10
-  }
-
-  if (candidate.email) {
-    score += 10
-  }
-  if (candidate.country) {
-    score += 10
-  }
-
-  if (candidate.phone) {
-    score += 20
-  }
-
-  if (candidate.avatar) {
-    score += 50
-  }
-
-  if (score < 30) {
-    type = 'Good'
-  }
-  if (score > 30 && score < 70) {
-    type = 'Could be better'
-  }
-
-  if (score > 70) {
-    type = 'Excellent'
-  }
-
-  return { type, score }
 }
 
 export const Item: React.FC<OwnProps> = ({ data }) => {
   const formatDate = new Date(data.createdAt).toDateString()
 
   return (
-    <div className="card m-3">
-      <div className="card-header">
-        Applied on {formatDate}
-        for {data.jobTitle}
-        in {data.jobLocation}
+    <div className="card my-4">
+      <div className="card-header text-muted">
+        Applied on
+        <span className="mx-1 font-italic font-weight-bold">{formatDate}</span>
+        for
+        <span className="mx-1 font-weight-bold">{data.jobTitle}</span>
+        in
+        <span className="mx-1 font-weight-bold">{data.jobLocation}</span>
       </div>
+
       <div className="card-body">
         <div className="row">
-          <div className="col-5 d-flex">
+          <div className="col-12 col-md-5 d-flex mb-3">
             <img src={data.avatar || avatar} alt="avatar" className="img" />
             <div className="ml-3">
               <h5 className="card-title">{data.fullName}</h5>
               <p className="card-text">{data.country}</p>
             </div>
           </div>
-          <div className="col-3 d-flex justify-content-end">
-            <CircularProgressbar
-              value={getScore(data).score}
-              text={`${getScore(data).score}%`}
-              className="progressBar"
-            />
-            <div className="ml-4">
-              <p className="card-text scoreText">Aplication Score</p>
-              <p className="card-text scoreText">
-                <b>{getScore(data).type}</b>
-              </p>
+
+          <div className="col-7 col-md-3 d-flex my-4 my-md-0">
+            <div className="row">
+              <div className="col-5">
+                <CircularProgressbar
+                  value={getScore(data).score}
+                  text={`${getScore(data).score}%`}
+                  className="progressBar"
+                />
+              </div>
+
+              <div className="col-7 p-2">
+                <p className="card-text">
+                  Aplication Score
+                  <br />
+                  <span className="card-text text-muted">
+                    <b>{getScore(data).type}</b>
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
-          <div className="col-4 d-flex justify-content-end">
+
+          <div className="col-5 col-md-4 d-flex justify-content-end my-4 my-md-0">
             <div>
               {data.qualified ? (
                 <button type="button" className="btn btn-outline-success m-1">
