@@ -1,0 +1,26 @@
+.tabItem {
+    min-width: 130px;
+    padding: 5px;
+    border-radius: 0;
+    background-color: white;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.15);
+}
+ 
+.tabItem.active {
+    color: #17a2b8;
+    font-weight: 500;
+}
+
+.tabItem:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-right-style: solid;
+    border-right-color: lightgray;
+}
+
+.tabItem:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left-style: solid;
+    border-left-color: lightgray;
+}

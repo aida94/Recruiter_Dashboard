@@ -2,14 +2,16 @@ import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-import { Candidate } from './../../models/candidate'
+import { CandidateInterface } from './../../models/interfaces'
 import avatar from './avatar.png'
 
 interface OwnProps {
-  data: Candidate
+  data: CandidateInterface
 }
 
-const getScore = (candidate: Candidate): { type: string; score: number } => {
+const getScore = (
+  candidate: CandidateInterface
+): { type: string; score: number } => {
   let type = 'Good'
   let score = 0
 

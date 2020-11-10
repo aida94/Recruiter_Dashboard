@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react'
 
-import { Candidate } from './../../models/candidate'
+import { CandidateInterface } from './../../models/interfaces'
 import { getCandidates } from './../../services/apiService'
 import { Item } from './../Item/item'
 import { Pagination } from './../Pagination/pagination'
 
 interface OwnProps {
-  tab: string
+  candidates: CandidateInterface[]
 }
 
-export const Candidates: React.FC<OwnProps> = ({ tab }) => {
-  const [candidates, setCandidates] = useState<Candidate[]>()
+export const Candidates: React.FC<OwnProps> = ({ candidates }) => {
+  // const [candidates, setCandidates] = useState<Candidate[]>()
   const [page, setPage] = useState<number>(1)
   const [total, setTotal] = useState<number>(0)
 
-  useEffect(() => {
-    getCandidates(page).then((data) => {
-      if (tab === 'qualified') {
-        setCandidates(data.items.filter((c) => c.qualified))
-      } else if (tab === 'unqualified') {
-        setCandidates(data.items.filter((c) => !c.qualified))
-      } else {
-        setCandidates(data.items)
-      }
-      setTotal(data.total)
-    })
-  }, [tab, page])
+  // useEffect(() => {
+  //   getCandidates(page).then((data) => {
+  //     if (tabName === 'qualified') {
+  //       setCandidates(data.items.filter((c) => c.qualified))
+  //     } else if (tabName === 'unqualified') {
+  //       setCandidates(data.items.filter((c) => !c.qualified))
+  //     } else {
+  //       setCandidates(data.items)
+  //     }
+  //     setTotal(data.total)
+  //   })
+  // }, [tabName, page])
 
   return (
     <div>

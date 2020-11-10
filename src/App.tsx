@@ -5,7 +5,7 @@ import { NavBar } from './components/Navbar/navbar'
 import { Menu } from './components/Menu/menu'
 
 const App = () => (
-  <div>
+  <div className="App">
     <NavBar />
     <div className="container">
       <Menu />

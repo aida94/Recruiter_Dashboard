@@ -1,81 +1,111 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
 
 import { Candidates } from '../Candidates/candidates'
 
+import { CandidateInterface } from './../../models/interfaces'
+import { Qualified } from './../../models/enum'
+import { getCandidates } from './../../services/apiService'
+
+import './menu.css'
+
 export const Menu: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('nav-qualified-tab')
+  const [activeTab, setActiveTab] = useState<string>(Qualified.Yes)
+  const [candidates, setCandidates] = useState<CandidateInterface[]>([])
+
+  const [candidateNr, setCandidateNr] = useState({
+    inReview: 0,
+    qualified: 0,
+    unqualified: 0,
+  })
+
+  useEffect(() => {
+    getCandidates(1).then((data) => {
+      const inReviewCan = data.items.filter(
+        (c) => c.qualified === Qualified.InReview
+      )
+      const qualifiedCan = data.items.filter(
+        (c) => c.qualified === Qualified.Yes
+      )
+      const unqualifiedCan = data.items.filter(
+        (c) => c.qualified === Qualified.No
+      )
+
+      setCandidateNr({
+        inReview: inReviewCan.length,
+        qualified: qualifiedCan.length,
+        unqualified: unqualifiedCan.length,
+      })
+
+      if (activeTab === Qualified.Yes) {
+        setCandidates(qualifiedCan)
+      } else if (activeTab === Qualified.No) {
+        setCandidates(unqualifiedCan)
+      } else if (activeTab === Qualified.InReview) {
+        setCandidates(inReviewCan)
+      }
+    })
+  }, [activeTab])
 
   return (
-    <div className="conainer mt-4">
-      <nav className="mb-4">
-        <div className="nav nav-tabs" id="nav-tab" role="tablist">
-          <a
-            className={`nav-item nav-link ${
-              activeTab === 'nav-review-tab' ? 'active' : ''
-            }`}
-            id="nav-review-tab"
-            data-toggle="tab"
-            role="tab"
-            onClick={() => setActiveTab('nav-review-tab')}
-          >
-            To review
-          </a>
-          <a
-            className={`nav-item nav-link ${
-              activeTab === 'nav-qualified-tab' ? 'active' : ''
-            }`}
-            id="nav-qualified-tab"
-            data-toggle="tab"
-            role="tab"
-            onClick={() => setActiveTab('nav-qualified-tab')}
-          >
-            Qualified
-          </a>
-          <a
-            className={`nav-item nav-link ${
-              activeTab === 'nav-unqualified-tab' ? 'active' : ''
-            }`}
-            id="nav-unqualified-tab"
-            data-toggle="tab"
-            role="tab"
-            onClick={() => setActiveTab('nav-unqualified-tab')}
-          >
-            Unqualified
-          </a>
-        </div>
-      </nav>
-      <div className="tab-content" id="nav-tabContent">
+    <div>
+      <div className="my-5 d-flex justify-content-start">
         <div
-          className={`tab-pane fade ${
-            activeTab === 'nav-review-tab' ? ' show active' : ''
-          }`}
-          id="nav-review"
-          role="tabpanel"
-          aria-labelledby="nav-review-tab"
+          className={classNames(
+            'tabItem',
+            activeTab === Qualified.InReview ? 'active' : ''
+          )}
+          onClick={() => setActiveTab(Qualified.InReview)}
         >
-          <Candidates tab="review" />
+          <span
+            className={classNames(
+              'badge badge-pill mr-1',
+              activeTab === Qualified.InReview ? 'badge-info' : 'badge-light'
+            )}
+          >
+            {candidateNr.inReview}
+          </span>
+          To review
         </div>
+
         <div
-          className={`tab-pane fade ${
-            activeTab === 'nav-qualified-tab' ? 'show active' : ''
-          }`}
-          id="nav-qualified"
-          role="tabpanel"
-          aria-labelledby="nav-qualified-tab"
+          className={classNames(
+            'tabItem',
+            activeTab === Qualified.Yes ? 'active' : ''
+          )}
+          onClick={() => setActiveTab(Qualified.Yes)}
         >
-          <Candidates tab="qualified" />
+          <span
+            className={classNames(
+              'badge badge-pill mr-1',
+              activeTab === Qualified.Yes ? 'badge-info' : 'badge-light'
+            )}
+          >
+            {candidateNr.qualified}
+          </span>
+          Qualified
         </div>
+
         <div
-          className={`tab-pane fade ${
-            activeTab === 'nav-unqualified-tab' ? 'show active' : ''
-          }`}
-          id="nav-unqualified"
-          role="tabpanel"
-          aria-labelledby="nav-unqualified-tab"
+          className={classNames(
+            'tabItem',
+            activeTab === Qualified.No ? 'active' : ''
+          )}
+          onClick={() => setActiveTab(Qualified.No)}
         >
-          <Candidates tab="unqualified" />
+          <span
+            className={classNames(
+              'badge badge-pill mr-1',
+              activeTab === Qualified.No ? 'badge-info' : 'badge-light'
+            )}
+          >
+            {candidateNr.unqualified}
+          </span>
+          Unqualified
         </div>
       </div>
+
+      <Candidates candidates={candidates} />
     </div>
   )
 }
