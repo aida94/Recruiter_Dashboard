@@ -1,8 +1,8 @@
-# Join Recruiter Dashboard
+# Recruiter Dashboard
 
 ## Context
 
-Join Recruiter Dashboard is a simple application in React  that display the list of candidates.
+Recruiter Dashboard is a simple application in React  that display the list of candidates.
 
 [ ] For each application calculate score:
   - 10% if full name provided
